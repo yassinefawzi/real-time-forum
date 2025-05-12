@@ -1,0 +1,32 @@
+:root{
+    --color1: #6A7FDB;
+    --color2: #B7A9E1;
+    --color3: #D1D9E6;
+    --color4: #A2C2E4;
+}
+
+* {
+   color: var(--color3); 
+}
+.createPost {
+    display: block;
+    background-color: var(--color1);
+    text-align: center;
+    margin: 10% 0 0 30%;
+    width: 30%;
+    padding: 4rem;
+}
+
+
+.form #myForm {
+    display: grid;
+    justify-content: center;
+    padding: 2rem 0 6rem 0;
+}
+
+#myForm {
+    row-gap: 1rem;
+    font-size: 1.5rem;
+
+
+}

@@ -1,0 +1,47 @@
+:root{
+    --color1: #6A7FDB;
+    --color2: #B7A9E1;
+    --color3: #D1D9E6;
+    --color4: #A2C2E4;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Aligns content and footer */  
+    background-color: var(--color2);
+}
+
+.navBar {
+    width: 100%;
+    background-color: var(--color1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 2vh 0 2vh 0;
+    gap: 60%;
+    color: #D1D9E6;
+    font-size: 1.5rem;
+}
+
+.categories {
+    display: flex;
+    list-style: none;
+    gap: 4rem;
+}
+
+.categories .addPost{
+    margin-top: 0.5%;
+}
