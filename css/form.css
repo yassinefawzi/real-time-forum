@@ -19,14 +19,37 @@
 
 
 .form #myForm {
-    display: grid;
+    display: block;
+    resize: none;
     justify-content: center;
     padding: 2rem 0 6rem 0;
 }
 
 #myForm {
+    overflow-y: auto;
     row-gap: 1rem;
     font-size: 1.5rem;
+}
 
 
+#myPostTitle {
+    color: black;
+    margin-top: 1rem;
+    width: 90%;
+    height: 2rem;
+    border-radius: 12px;
+}
+
+#myPostContent {    
+    color: black;
+    height: 1rem;
+    margin-top: 1rem;
+    width: 90%;
+    padding: 0.6rem 0.6rem 10rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+#myPostImage {
+   
 }
