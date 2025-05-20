@@ -3,6 +3,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-right: 1rem;
+    display: none;
 }
 
 .post {
@@ -50,7 +51,7 @@
     gap: 1rem;
     margin: 0.5rem;
     padding: 0.5rem;
-    background-color: var(--color2);
+    background-color: var(--color1);
     border-radius: 12px;
     justify-content: center;
  

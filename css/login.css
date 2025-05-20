@@ -1,0 +1,46 @@
+:root{
+    --color1: #6E7271;
+    --color2: #ACAD94;
+    --color3: #E2E2E2;
+    --color4: #D8D4D5;
+}
+
+.myLogIn {
+    display: grid;
+    justify-content: center;
+    gap: 2rem;
+}
+
+#myLogInForm {
+    margin-top: 2.5rem;
+    padding: 10rem 10rem 14rem 10rem;
+    background-color: var(--color1);
+    display: grid;
+    gap: 1.2rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+#myLogInForm label {
+    font-size: 1.5rem;
+}
+
+#myLogInForm input  {
+    color: black;
+    height: 2rem;
+    width: 30rem;
+}
+
+
+button {
+    color: var(--color3);
+    height: 2rem;
+    background-color: var(--color1);
+    border-color: var(--color2);
+    border-radius: 12px;
+
+}

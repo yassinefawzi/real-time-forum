@@ -7,39 +7,58 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/post.css">
     <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="css/login.css">
     <title>Real-time-forum</title>
 </head>
 <body>
+    <!-- navbar Section-->
     <header>
             <section class="navBar">
                 <h1 class="logo">Forum</h1>
                 <ul class="categories">
                     <li class="home">home</li>
                     <li class="logIn">log in</li>
-                    <li class="logOut">log out</li>
-                    <li class="icon">icon</li>
-                    <li class="addPost"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <li class="logOut" id="needLog">log out</li>
+                    <li class="addPost" id="needLog"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                         <path d="M12 2C11.4477 2 11 2.4477 11 3V11H3C2.4477 11 2 11.4477 2 12C2 12.5523 2.4477 13 3 13H11V21C11 21.5523 11.4477 22 12 22C12.5523 22 13 21.5523 13 21V13H21C21.5523 13 22 12.5523 22 12C22 11.4477 21.5523 11 21 11H13V3C13 2.4477 12.5523 2 12 2Z" fill="currentColor"/>
                       </svg></li>
                 </ul>
             </nav>
     </header>
+     <!-- Log In Section-->
+      <section class="logIn">
+        <div class="myLogIn">
+            <form id="myLogInForm">
+                <h1>Log In</h1>
+                <label for="username">Username:</label>
+                <input type="text" placeholder="Enter your username..." name="username" id="myUserName">
+                <br><br>
+                <label for="password">password</label>
+                <input type="text" name="password" id="myPassword" placeholder="Enter your password...">
+                <br><br>
+                <button>Submit</button>
+
+            </form>
+        </div>
+
+      </section>
+        <!-- Create Post Section-->
     <section class="createPost">
         <h1>Create Post</h1>
         <div class="form">
-            <form id="myForm" enctype="multipart/form-dat">
+            <form id="myForm">
                 <label for="myPostTitle">Title:</label>
-                <input type="text" placeholder="Enter your Title here..." name="title" id="myPostTitle">
+                <input type="text" placeholder="Enter your Title here..." name="title" id="myPostTitle" required>
                 <br><br>
-                <label for="MyPostContent">Content</label>
-                <textarea name="content" placeholder="Enter your content here..." id="myPostContent"></textarea>
+                <label for="myPostContent">Content</label>
+                <textarea name="content" placeholder="Enter your content here..." id="myPostContent" required></textarea> 
                 <br><br>
-                <label for="MyPostImage">image</label>
-                <input type="file" name="image" id="myPostImage" accept="image/*">
+                <button id="myPostImage">Submit</button>
             </form>
             <br><br>
         </div>
     </section>
+        <!-- Feed Post Section-->
     <section class="posts">
         <div class="post">
             <div class="postImg">

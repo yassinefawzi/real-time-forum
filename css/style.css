@@ -1,8 +1,8 @@
 :root{
-    --color1: #6A7FDB;
-    --color2: #B7A9E1;
-    --color3: #D1D9E6;
-    --color4: #A2C2E4;
+    --color1: #6E7271;
+    --color2: #ACAD94;
+    --color3: #E2E2E2;
+    --color4: #D8D4D5;
 }
 
 html, body {
@@ -44,4 +44,8 @@ body {
 
 .categories .addPost{
     margin-top: 0.5%;
+}
+
+#needLog {
+    display: none;
 }
