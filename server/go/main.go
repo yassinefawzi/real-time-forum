@@ -49,7 +49,6 @@ func main() {
 
 	// Handlers
 	http.HandleFunc("/api/signup", h.Getregister)
-	http.HandleFunc("/api/check-user", h.CheckUserExists)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		err := tmpl.Execute(w, nil)

@@ -16,6 +16,11 @@ html, body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
 }
+
+.errorMessage {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
 body {
     display: flex;
     flex-direction: column;

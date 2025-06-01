@@ -44,40 +44,46 @@
         </div>
       </section>
 
-    <!-- Sign Up Section-->
-    <section class="signUp" id="signUpSection">
-        <div class="mySignUp">
-            <form id="mySignUpForm" action="/api/signup" method="post" onsubmit="return validateForm()">
-                <h1>Sign Up</h1>
-                <label for="nickname">Nickname:</label>
-                <input type="text" placeholder="Enter your Nickname..." name="Nickname" id="myUserNickname" minlength="6" required>
-                <br><br>
-                <label for="Age">Age:</label>
-                <input type="number" name="Age" id="myAgedSignUp" placeholder="Enter your Age..." min="18" max="70" required>
-                <br><br>
-                <label for="Gender" >Gender:</label>
-                <div class="gender">
-                <label for="genderMale" >Male:</label>
+   <section class="signUp" id="signUpSection">
+    <div class="mySignUp">
+        <form id="mySignUpForm">
+            <h1>Sign Up</h1>
+            
+            <!-- Error message div -->
+            <div id="errorMessage" style="color: red;"></div>
+            <div id="successMessage" style="color: green;"></div>
+            
+            <label for="nickname">Nickname:</label>
+            <input type="text" placeholder="Enter your Nickname..." name="Nickname" id="myUserNickname" minlength="6" required>
+            <br><br>
+            <label for="Age">Age:</label>
+            <input type="number" name="Age" id="myAgedSignUp" placeholder="Enter your Age..." min="18" max="70" required>
+            <br><br>
+            <label for="Gender">Gender:</label>
+            <div class="gender">
+                <label for="genderMale">Male:</label>
                 <input type="radio" name="gender" value="male" id="genderMale" required>
                 <label for="genderFemale">Female:</label>
                 <input type="radio" name="gender" value="female" id="genderFemale" required>
-                </div>
-                <br><br>
-                <label for="FirstName">First Name:</label>
-                <input type="text" placeholder="Enter your First Name..." name="First Name" id="myUserFirstSignUp" minlength="3" required>
-                <br><br>
-                <label for="FirstName">Last Name:</label>
-                <input type="text" placeholder="Enter your Last Name..." name="Last Name" id="myUserLastSignUp" minlength="3" required>
-                <br><br>
-                <label for="E-mail">E-mail:</label>
-                <input type="email" placeholder="Enter your E-mail..." name="E-mail" id="myUserMailSignUp" required>
-                <br><br>
-                <label for="Password">Password:</label>
-                <input type="password" placeholder="Enter your Password..." name="Password" id="myUserPasswordSignUp" minlength="6" required>
-                <br><br>
-                <input type="submit" value="Submit" id="submitSignUp">
-                <br><br>
-            </form>
+            </div>
+            <br><br>
+            <label for="FirstName">First Name:</label>
+            <input type="text" placeholder="Enter your First Name..." name="First Name" id="myUserFirstSignUp" minlength="3" required>
+            <br><br>
+            <label for="LastName">Last Name:</label>
+            <input type="text" placeholder="Enter your Last Name..." name="Last Name" id="myUserLastSignUp" minlength="3" required>
+            <br><br>
+            <label for="E-mail">E-mail:</label>
+            <input type="email" placeholder="Enter your E-mail..." name="E-mail" id="myUserMailSignUp" required>
+            <br><br>
+            <label for="Password">Password:</label>
+            <input type="password" placeholder="Enter your Password..." name="Password" id="myUserPasswordSignUp" minlength="6" required>
+            <br><br>
+            <input type="submit" value="Submit" id="submitSignUp">
+            <br><br>
+        </form>
+    </div>
+</section>
     </section>
         <!-- Create Post Section-->
     <section class="createPost">
@@ -117,7 +123,7 @@
             </div>
         </div>
     </section>
-    <script src="/js/script.js"></script>
+    <script src="/static/js/register.js"></script>
 </body>
 <footer>
     <section class="footer">
