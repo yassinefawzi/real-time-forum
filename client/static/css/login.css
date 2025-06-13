@@ -6,18 +6,29 @@
 }
 
 .myLogIn {
-    display: grid;
+    display: none;
     justify-content: center;
-    gap: 2rem;
+    align-items: center;
+    background-color: var(--color1);
+    gap: 1rem;
+    width: 50%;
+    margin: 0 auto;
+    padding: 2rem 10rem 3rem 10rem;
+    border-radius: 12px;
+}
+
+.logerror {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.myLogIn h1 {
+    text-align: center;
 }
 
 #myLogInForm {
-    margin-top: 2.5rem;
-    padding: 10rem 10rem 14rem 10rem;
-    background-color: var(--color1);
     display: grid;
     gap: 1.2rem;
-    border-radius: 12px;
     text-align: center;
 }
 

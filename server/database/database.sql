@@ -9,3 +9,11 @@ CREATE TABLE IF NOT EXISTS users (
     lastName TEXT NOT NULL,
     password_hash TEXT NOT NULL
 );
+
+-- 2. Posts 📝
+CREATE TABLE IF NOT EXISTS posts (
+    id TEXT UNIQUE PRIMARY KEY,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    category TEXT NOT NULL,
+​)

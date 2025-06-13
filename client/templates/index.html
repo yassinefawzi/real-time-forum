@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/post.css">
-    <link rel="stylesheet" href="../static/css/form.css">
     <link rel="stylesheet" href="../static/css/login.css">
     <link rel="stylesheet" href="../static/css/signup.css">
+    <link rel="stylesheet" href="../static/css/createpost.css">
     <title>Real-time-forum</title>
 </head>
 <body>
@@ -27,19 +26,20 @@
     </header>
      <!-- Log In Section-->
       <section class="logIn" id="logInSection">
-        <div class="myLogIn">
-            <form id="myLogInForm">
-                <h1>Log In</h1>
+          <div class="myLogIn">
+              <h1>Log In</h1>
+              <div id="logerrorMessage" class="logerror" style="color: red;"></div>
+              <div id="logsuccessMessage" class="logerror" style="color: green;"></div>
+              <form id="myLogInForm">
                 <label for="username">Username:</label>
                 <input type="text" placeholder="Enter your username..." name="username" id="myUserName" minlength="6" required>
                 <br><br>
                 <label for="password">password</label>
                 <input type="password" name="password" id="myPassword" placeholder="Enter your password..." minlength="6" required>
                 <br><br>
-                <button id="submitLogIn">Submit</button>
+                <input type="submit" value="Submit" id="submitLogIn">
                 <br><br>
                 <p>Don't have an account? <a href="/signup" id="signUpLink">Sign Up</a></p>
-                <script src="../static/js/register.js"></script>
             </form>
         </div>
       </section>
@@ -86,44 +86,34 @@
 </section>
     </section>
         <!-- Create Post Section-->
-    <section class="createPost">
+    <section class="createPost" id="createPost">
         <h1>Create Post</h1>
-        <div class="form">
-            <form id="myForm">
-                <label for="myPostTitle">Title:</label>
-                <input type="text" placeholder="Enter your Title here..." name="title" id="myPostTitle" required>
-                <br><br>
-                <label for="myPostContent">Content</label>
-                <textarea name="content" placeholder="Enter your content here..." id="myPostContent" required></textarea> 
-                <br><br>
-                <button id="myPostImage">Submit</button>
-            </form>
+        <div id="createErrorMessage" class="createError" style="color: red;"></div>
+        <div id="createSuccessMessage" class="createError" style="color: green;"></div>
+        <form id="myCreateForm">
+            <label for="myPostTitle">Title</label>
+            <input type="text" placeholder="Enter your Title here..." name="title" id="myPostTitle" required>
             <br><br>
-        </div>
+            <label for="myPostCategory">categories</label>
+            <select name="myPostCategory" id="myPostCategory" name="categories" required>
+                <option value="">-- Select a category --</option>
+                <option value="technology">Technology</option>
+                <option value="fashion">Fashion</option>
+                <option value="health">Health</option>
+                <option value="travel">Travel</option>
+                <option value="education">Education</option>
+                <option value="sports">Sports</option>
+            </select>
+            <br><br>
+            <label for="myPostContent">Content</label>
+            <textarea name="content" placeholder="Enter your content here..." id="myPostContent" required></textarea> 
+            <br><br>
+            <button id="myPostImage">Submit</button>
+        </form>
     </section>
         <!-- Feed Post Section-->
-    <section class="posts">
-        <div class="post">
-            <div class="postImg">
-                <p>img</p>
-            </div>
-            <div class="postContent">
-                <div class="postTitle">title</div>
-                <div class="postCont">content content content content content content content content content content content content content content</div>
-                <div class="interactions">
-                    <div class="inter">
-                    <div class="likes">like</div>
-                    <p>10</p>
-                    </div>
-                    <div class="inter">
-                        <div class="dislike">dislike</div>
-                        <p>12</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <script src="/static/js/register.js"></script>
+    <script src="/static/js/posts.js"></script>
 </body>
 <footer>
     <section class="footer">

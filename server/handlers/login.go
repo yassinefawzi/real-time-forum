@@ -1,16 +1,19 @@
 package handlers
 
 import (
-	http "net/http"
-	g "forum/server/global"
-	"log"
-	_ "github.com/mattn/go-sqlite3"
-	"strconv"
 	"database/sql"
-	"golang.org/x/crypto/bcrypt"
 	"encoding/json"
-	"github.com/google/uuid"
+	g "forum/server/global"
+	glo "forum/server/global"
+	"log"
+	http "net/http"
+	"strconv"
 	"strings"
+
+	"github.com/google/uuid"
+	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/crypto/bcrypt"
+    "errors"
 )
 
 func insertUser(db *sql.DB, user g.User) error {
@@ -44,31 +47,6 @@ func Getregister(w http.ResponseWriter, r *http.Request) {
     user.Username = r.FormValue("Nickname")
     user.Email = r.FormValue("E-mail")
     
-    // Debug: Print received form values
-    log.Printf("Received form values:")
-    log.Printf("Nickname: '%s'", r.FormValue("Nickname"))
-    log.Printf("E-mail: '%s'", r.FormValue("E-mail"))
-    log.Printf("Age: '%s'", r.FormValue("Age"))
-    
-    // Validate required fields
-    if user.Username == "" {
-        w.Header().Set("Content-Type", "application/json")
-        json.NewEncoder(w).Encode(map[string]interface{}{
-            "success": false,
-            "error": "Nickname is required",
-        })
-        return
-    }
-    
-    if user.Email == "" {
-        w.Header().Set("Content-Type", "application/json")
-        json.NewEncoder(w).Encode(map[string]interface{}{
-            "success": false,
-            "error": "Email is required",
-        })
-        return
-    }
-    
     age, err := strconv.Atoi(r.FormValue("Age"))
     if err != nil {
         w.Header().Set("Content-Type", "application/json")
@@ -85,15 +63,6 @@ func Getregister(w http.ResponseWriter, r *http.Request) {
     user.LastName = r.FormValue("Last Name")
     
     password := r.FormValue("Password")
-    if password == "" {
-        w.Header().Set("Content-Type", "application/json")
-        json.NewEncoder(w).Encode(map[string]interface{}{
-            "success": false,
-            "error": "Password is required",
-        })
-        return
-    }
-    
     user.Password, err = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
     if err != nil {
         w.Header().Set("Content-Type", "application/json")
@@ -129,5 +98,52 @@ func Getregister(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(map[string]interface{}{
         "success": true,
         "message": "Registration successful!",
+    })
+}
+
+func Getlogin(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    if err := r.ParseForm(); err != nil {
+        json.NewEncoder(w).Encode(map[string]interface{}{
+            "success": false,
+            "error": "Unable to parse form data",
+        })
+        return
+    }
+
+    username := r.FormValue("username")
+    password := r.FormValue("password")
+    var hashedPassword string
+    err := glo.DB.QueryRow("SELECT password_hash FROM users WHERE username = ?", username).Scan(&hashedPassword)
+    if err != nil {
+        if errors.Is(err, sql.ErrNoRows) {
+            w.WriteHeader(http.StatusUnauthorized)
+            json.NewEncoder(w).Encode(map[string]interface{}{
+                "success": false,
+                "error":   "Account not found",
+            })
+        } else {
+            w.WriteHeader(http.StatusInternalServerError)
+            json.NewEncoder(w).Encode(map[string]interface{}{
+                "success": false,
+                "error":   "Server error",
+            })
+        }
+        return
+    }
+
+    err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        json.NewEncoder(w).Encode(map[string]interface{}{
+            "success": false,
+            "error":   "Incorrect password",
+        })
+        return
+    }
+
+    json.NewEncoder(w).Encode(map[string]interface{}{
+        "success": true,
+        "message": "Login successful",
     })
 }
