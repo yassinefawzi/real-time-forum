@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/css/login.css">
     <link rel="stylesheet" href="../static/css/signup.css">
     <link rel="stylesheet" href="../static/css/createpost.css">
+    <link rel="stylesheet" href="../static/css/post.css">
     <title>Real-time-forum</title>
 </head>
 <body>
@@ -17,8 +18,8 @@
                 <h1 class="logo">Forum</h1>
                 <ul class="categories">
                     <li class="home">home</li>
-                    <li class="logOut" id="needLog">log out</li>
-                    <li class="addPost" id="needLog"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <li class="needLog" id="logout">log out</li>
+                    <li class="needLog" id="createicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                         <path d="M12 2C11.4477 2 11 2.4477 11 3V11H3C2.4477 11 2 11.4477 2 12C2 12.5523 2.4477 13 3 13H11V21C11 21.5523 11.4477 22 12 22C12.5523 22 13 21.5523 13 21V13H21C21.5523 13 22 12.5523 22 12C22 11.4477 21.5523 11 21 11H13V3C13 2.4477 12.5523 2 12 2Z" fill="currentColor"/>
                       </svg></li>
                 </ul>
@@ -112,8 +113,19 @@
         </form>
     </section>
         <!-- Feed Post Section-->
-    <script src="/static/js/register.js"></script>
-    <script src="/static/js/posts.js"></script>
+    <section class="feedPost" id="feedPost">
+        {{range .}}
+            <div class="post">
+                <h2 class="postTitle">{{.Title}}</h2>
+                <p class="postCategory">Category: {{.Category}}</p>
+                <p class="postContent">{{.Content}}</p>
+            </div>
+        {{end}}
+    </section>
+        <div id="postContainer"></div>
+    <script type="module" src="/static/js/register.js"></script>
+    <script type="module"  src="/static/js/posts.js"></script>
+    <script type="module" src="/static/js/session.js"></script>
 </body>
 <footer>
     <section class="footer">

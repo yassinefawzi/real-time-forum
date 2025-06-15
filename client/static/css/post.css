@@ -1,0 +1,53 @@
+:root{
+    --color1: #6E7271;
+    --color2: #ACAD94;
+    --color3: #E2E2E2;
+    --color4: #D8D4D5;
+}
+
+.feedPost {
+    margin: 5% auto; /* centers and avoids horizontal overflow */
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));
+    gap: 2rem;
+    grid-auto-rows: auto;
+}
+
+.posts {
+    display: grid;
+    background-color: var(--color1);
+    color: var(--color3);
+    padding: 4rem 4rem 4rem 4rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem var(--color1);
+    text-align: center;
+    gap: 2rem;
+}
+
+.posts:hover {
+    scale: 1.09;
+    transition: scale 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+
+.postTitle {
+  font-size: 1.7rem;
+  font-weight: bold;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+  display: block;
+}
+
+
+.postCategory {
+    display: grid;
+    font-size: 1.2rem;
+}
+
+.postContent {
+    display: none;
+}

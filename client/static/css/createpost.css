@@ -16,6 +16,8 @@
     padding: 2rem 10rem 3rem 10rem;
     border-radius: 12px;
     color: var(--color3);
+    display: none;
+    margin-top: 2rem;
 }
 
 .createPost h1 {
@@ -35,7 +37,6 @@
 
 #myCreateForm input, select {
     color: black;
-    width: 30rem;
     height: 1.5rem;
     border-radius: 12px;
     padding: 0.5rem;
@@ -47,9 +48,12 @@
 
 #myCreateForm textarea {
     color: black;
-    width: 30rem;
     height: 10rem;
     border-radius: 12px;
     padding: 0.5rem;
 }
 
+.createError {
+    font-size: 1rem;
+    text-align: center;
+}

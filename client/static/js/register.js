@@ -1,5 +1,6 @@
 console.log("Register script loaded");
 
+import { fetchPosts } from './posts.js';
 
 document.getElementById("signUpLink").addEventListener("click", function(e) {
     const form = document.getElementById('myLogInForm');
@@ -111,8 +112,8 @@ async function handleLogIn(event) {
             successDiv.style.display = 'block';                
             setTimeout(() => {
                 document.getElementById("logInSection").style.display = "none";
-                document.getElementById("posts").style.display = "block";
                 form.reset();
+                fetchPosts();
             }, 2000);
         } else {
             errorDiv.textContent = result.error;

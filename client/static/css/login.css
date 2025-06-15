@@ -5,8 +5,12 @@
     --color4: #D8D4D5;
 }
 
+.logIn {
+    margin-top: 2rem;
+}
+
 .myLogIn {
-    display: none;
+    display: grid   ;
     justify-content: center;
     align-items: center;
     background-color: var(--color1);
@@ -15,6 +19,7 @@
     margin: 0 auto;
     padding: 2rem 10rem 3rem 10rem;
     border-radius: 12px;
+    color: var(--color3);
 }
 
 .logerror {

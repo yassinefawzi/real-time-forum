@@ -7,6 +7,7 @@ import (
 	glo "forum/server/global"
 	"log"
 	http "net/http"
+    session "forum/server/session"
 	"strconv"
 	"strings"
 
@@ -141,9 +142,27 @@ func Getlogin(w http.ResponseWriter, r *http.Request) {
         })
         return
     }
+    session.SetSession(w, username)
+    w.WriteHeader(http.StatusOK)
 
     json.NewEncoder(w).Encode(map[string]interface{}{
         "success": true,
         "message": "Login successful",
     })
+}
+
+func CheckSession(w http.ResponseWriter, r *http.Request) {
+    username, ok := session.GetSessionUsername(r)
+    w.Header().Set("Content-Type", "application/json")
+
+    if ok {
+        json.NewEncoder(w).Encode(map[string]interface{}{
+            "loggedIn": true,
+            "username": username,
+        })
+    } else {
+        json.NewEncoder(w).Encode(map[string]interface{}{
+            "loggedIn": false,
+        })
+    }
 }

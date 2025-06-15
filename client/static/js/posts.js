@@ -12,6 +12,7 @@ async function handlePostCreation(event) {
     const form = document.getElementById('myCreateForm');
     const errorDiv = document.getElementById('createErrorMessage');
     const successDiv = document.getElementById('createSuccessMessage');
+    const postsDiv = document.getElementById('feedPost');
 
     // Hide previous messages
     errorDiv.style.display = 'none';
@@ -37,7 +38,8 @@ async function handlePostCreation(event) {
             
             setTimeout(() => {
                 document.getElementById("createPost").style.display = "none";
-                //document.getElementById("posts").style.display = "block";
+                fetchPosts();
+                postsDiv.style.display = "grid";
                 form.reset();
             }, 2000);
             
@@ -51,4 +53,42 @@ async function handlePostCreation(event) {
         console.error('Error:', error);
     }
     return false;
+}
+
+document.getElementById('createicon').addEventListener('click', function() {
+    document.getElementById("createPost").style.display = "block";
+    document.getElementById("feedPost").style.display = "none";
+    document.getElementById("myCreateForm").reset();
+    document.getElementById("createErrorMessage").style.display = "none";
+    document.getElementById("createSuccessMessage").style.display = "none";
+});
+
+export async function fetchPosts() {
+    console.log("Fetching posts...");
+    try {
+        const response = await fetch('/api/posts');
+        if (!response.ok) throw new Error('Failed to fetch posts');
+        const posts = await response.json();
+
+        const feedPost = document.getElementById('feedPost');
+        feedPost.style.display = 'grid';
+        feedPost.innerHTML = '';
+
+        posts.forEach(post => {
+            const postDiv = document.createElement('div');
+            postDiv.className = 'posts';
+
+            postDiv.innerHTML = `
+                <h2 class="postTitle">${post.title}</h2>
+                <p class="postCategory">Category: ${post.category}</p>
+                <p class="postContent">${post.content}</p>
+            `;
+
+            feedPost.appendChild(postDiv);
+        });
+        //document.getElementById("posts").style.display = "block";
+
+    } catch (err) {
+        console.error('Error loading posts:', err);
+    }
 }

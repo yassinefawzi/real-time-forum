@@ -50,7 +50,9 @@ func main() {
 	// Handlers
 	http.HandleFunc("/api/signup", h.Getregister)
 	http.HandleFunc("/api/login", h.Getlogin)
+	http.HandleFunc("/api/checksession", h.CheckSession)
 	http.HandleFunc("/api/createpost", h.Getcreatepost)
+	http.HandleFunc("/api/posts", h.Getposts)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		err := tmpl.Execute(w, nil)

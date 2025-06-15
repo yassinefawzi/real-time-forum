@@ -7,6 +7,7 @@ import (
 	"log"
 	http "net/http"
 	"github.com/google/uuid"
+	session "forum/server/session"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -53,4 +54,31 @@ func Getcreatepost(w http.ResponseWriter, r *http.Request) {
 		"message": "Post created successfully",
 		"post":    post,
 	})
+}
+
+func Getposts(w http.ResponseWriter, r *http.Request) {
+    _, ok := session.GetSessionUsername(r)
+    if !ok {
+        http.Error(w, "Unauthorized", http.StatusUnauthorized)
+        return
+    }
+
+    rows, err := g.DB.Query("SELECT title, content, category FROM posts ORDER BY rowid DESC")
+    if err != nil {
+        http.Error(w, "Database error", http.StatusInternalServerError)
+        return
+    }
+    defer rows.Close()
+
+    var posts []g.Post
+    for rows.Next() {
+        var post g.Post
+        if err := rows.Scan(&post.Title, &post.Content, &post.Category); err != nil {
+            continue
+        }
+        posts = append(posts, post)
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(posts)
 }
