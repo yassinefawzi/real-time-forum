@@ -10,6 +10,7 @@ html, body {
   padding: 0;
   overflow-x: hidden; /* ✅ Prevent horizontal scroll */
   box-sizing: border-box;
+  color: var(--color3);
 }
 
 
@@ -17,6 +18,7 @@ html, body {
     margin-bottom: 10px;
     font-size: 1.2rem;
 }
+
 body {
     display: flex;
     flex-direction: column;
@@ -35,6 +37,10 @@ body {
     gap: 60%;
     color: #D1D9E6;
     font-size: 1.5rem;
+}
+
+.needLog {
+    display: none;
 }
 
 .categories {

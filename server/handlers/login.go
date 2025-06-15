@@ -166,3 +166,13 @@ func CheckSession(w http.ResponseWriter, r *http.Request) {
         })
     }
 }
+
+func Getlogout(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    session.DeleteSession(w, r)
+    
+    json.NewEncoder(w).Encode(map[string]interface{}{
+        "success": true,
+        "message": "Logout successful",
+    })
+}

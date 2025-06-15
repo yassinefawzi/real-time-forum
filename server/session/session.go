@@ -47,6 +47,8 @@ func GetSessionUsername(r *http.Request) (string, bool) {
 }
 
 func DeleteSession(w http.ResponseWriter, r *http.Request) {
+	log.Println("Deleting session")
+
 	cookie, err := r.Cookie("session_id")
 	if err != nil {
 		return
@@ -55,8 +57,13 @@ func DeleteSession(w http.ResponseWriter, r *http.Request) {
 	g.SessionsMu.Lock()
 	delete(g.Sessions, cookie.Value)
 	g.SessionsMu.Unlock()
-	
-	cookie.MaxAge = -1
-	http.SetCookie(w, cookie)
-}
 
+	http.SetCookie(w, &http.Cookie{
+		Name:     "session_id",
+		Value:    "",
+		Path:     "/",                          // MUST match
+		HttpOnly: true,                         // SHOULD match
+		Expires:  time.Unix(0, 0),              // In the past
+		MaxAge:   -1,                           // Immediate expiry
+	})
+}

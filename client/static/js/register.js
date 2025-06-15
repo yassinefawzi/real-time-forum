@@ -112,6 +112,8 @@ async function handleLogIn(event) {
             successDiv.style.display = 'block';                
             setTimeout(() => {
                 document.getElementById("logInSection").style.display = "none";
+                document.getElementById("logout").style.display = "block";
+                document.getElementById("createicon").style.display = "block";
                 form.reset();
                 fetchPosts();
             }, 2000);
@@ -126,3 +128,29 @@ async function handleLogIn(event) {
     }
     return false;
 }
+
+document.getElementById("logout").addEventListener("click", function(e) {
+    e.preventDefault();
+    fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log("Logged out successfully");
+            document.getElementById("logInSection").style.display = "block";
+            document.getElementById("signUpSection").style.display = "none";
+            document.getElementById("logout").style.display = "none";
+            document.getElementById("createicon").style.display = "none";
+            document.getElementById("feedPost").style.display = "none";
+            document.getElementById('logsuccessMessage').style.display = 'none';
+            
+        } else {
+            console.error("Logout failed:", data.error);
+        }
+    })
+    .catch(error => console.error('Error during logout:', error));
+})
