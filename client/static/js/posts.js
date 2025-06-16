@@ -77,8 +77,9 @@ export async function fetchPosts() {
         posts.forEach(post => {
             const postDiv = document.createElement('div');
             postDiv.className = 'posts';
-
+            postDiv.id = `${post.id}`;
             postDiv.innerHTML = `
+                
                 <h2 class="postTitle">${post.title}</h2>
                 <p class="postCategory">Category: ${post.category}</p>
                 <p class="postContent">${post.content}</p>
@@ -86,9 +87,37 @@ export async function fetchPosts() {
 
             feedPost.appendChild(postDiv);
         });
-        //document.getElementById("posts").style.display = "block";
-
     } catch (err) {
         console.error('Error loading posts:', err);
     }
 }
+
+document.addEventListener("click", function(e) {
+    const post = e.target.closest(".posts");
+    if (post) {
+        document.getElementById("feedPost").style.display = "none";
+        singlePost(post);
+    }
+});
+
+async function singlePost(post) {
+    try {
+        const response = await fetch(`/api/singlepost/${post.id}`);
+        if (!response.ok) throw new Error('Failed to fetch single post');
+        const postData = await response.json();
+
+        const single = document.getElementById('singlePost');
+        single.style.display = 'grid';
+        single.innerHTML = `
+            <h2 class="postTitle">${postData.title}</h2>
+            <p class="postCategory">Category: ${postData.category}</p>
+            <p class="postContent">${postData.content}</p>
+        `;
+        Array.from(document.getElementsByClassName('postContent')).forEach(el => {
+        el.style.display = 'block'});
+
+    } catch (error) {
+        console.error('Error displaying single post:', error);
+    }
+}
+    

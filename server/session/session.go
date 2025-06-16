@@ -61,9 +61,9 @@ func DeleteSession(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{
 		Name:     "session_id",
 		Value:    "",
-		Path:     "/",                          // MUST match
-		HttpOnly: true,                         // SHOULD match
-		Expires:  time.Unix(0, 0),              // In the past
-		MaxAge:   -1,                           // Immediate expiry
+		Path:     "/",
+		HttpOnly: true,
+		Expires:  time.Unix(0, 0),
+		MaxAge:   -1,
 	})
 }

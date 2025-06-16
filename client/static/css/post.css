@@ -51,3 +51,42 @@
 .postContent {
     display: none;
 }
+
+.singlePost {
+    display: none;
+    background-color: var(--color1);
+    color: var(--color3);
+    width: 60%;
+    margin: 5% auto;
+    padding: 2rem;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow-x: hidden;
+}
+
+.singlePost .postTitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.singlePost .postCategory {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--color2);
+    text-align: center;
+}
+
+.singlePost .postContent {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}

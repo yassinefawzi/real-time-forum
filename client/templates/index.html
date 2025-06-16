@@ -12,6 +12,7 @@
     <title>Real-time-forum</title>
 </head>
 <body>
+    <div class="wrapper">
     <!-- navbar Section-->
     <header>
             <section class="navBar">
@@ -113,23 +114,17 @@
         </form>
     </section>
         <!-- Feed Post Section-->
-    <section class="feedPost" id="feedPost">
-        {{range .}}
-            <div class="post">
-                <h2 class="postTitle">{{.Title}}</h2>
-                <p class="postCategory">Category: {{.Category}}</p>
-                <p class="postContent">{{.Content}}</p>
-            </div>
-        {{end}}
-    </section>
-        <div id="postContainer"></div>
+    <section class="feedPost" id="feedPost"></section>
+    <section class="singlePost" id="singlePost"></section>
+    <div id="postContainer"></div>
+    <footer>
+        <section class="footer">
+            <div class="created">made by Yassine Fawzi</div>
+        </section>
+    </footer>
     <script type="module" src="/static/js/register.js"></script>
     <script type="module"  src="/static/js/posts.js"></script>
     <script type="module" src="/static/js/session.js"></script>
+    </div>
 </body>
-<footer>
-    <section class="footer">
-        <div class="created">made by Yassine Fawzi</div>
-    </section>
-</footer>
 </html>

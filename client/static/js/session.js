@@ -13,8 +13,9 @@ async function checkSession() {
         if (result.loggedIn) {
             document.getElementById("logInSection").style.display = "none";
             document.getElementById("feedPost").style.display = "grid";
+            document.getElementById("logout").style.display = "block";
+            document.getElementById("createicon").style.display = "block";
             console.log("User is logged in:", result.username);
-
             fetchPosts();
         } else {
             document.getElementById("logInSection").style.display = "block";

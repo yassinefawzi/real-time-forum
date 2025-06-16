@@ -6,9 +6,10 @@
 }
 
 html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+  overflow-x: hidden;
   box-sizing: border-box;
   color: var(--color3);
 }
@@ -60,4 +61,18 @@ body {
     padding: 20px;
     text-align: center;
     color: var(--color4);
+}
+
+#postContainer {
+    flex: 1;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#postContainer {
+    flex: 1;
 }

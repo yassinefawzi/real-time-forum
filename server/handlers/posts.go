@@ -3,6 +3,7 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
+	"strings"
 	g "forum/server/global"
 	"log"
 	http "net/http"
@@ -63,7 +64,7 @@ func Getposts(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    rows, err := g.DB.Query("SELECT title, content, category FROM posts ORDER BY rowid DESC")
+    rows, err := g.DB.Query("SELECT id, title, content, category FROM posts ORDER BY rowid DESC")
     if err != nil {
         http.Error(w, "Database error", http.StatusInternalServerError)
         return
@@ -73,7 +74,7 @@ func Getposts(w http.ResponseWriter, r *http.Request) {
     var posts []g.Post
     for rows.Next() {
         var post g.Post
-        if err := rows.Scan(&post.Title, &post.Content, &post.Category); err != nil {
+        if err := rows.Scan(&post.ID, &post.Title, &post.Content, &post.Category); err != nil {
             continue
         }
         posts = append(posts, post)
@@ -81,4 +82,32 @@ func Getposts(w http.ResponseWriter, r *http.Request) {
 
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(posts)
+}
+
+func GetSinglePost(w http.ResponseWriter, r *http.Request) {
+    // Extract the post ID from the URL manually
+    pathParts := strings.Split(r.URL.Path, "/")
+    if len(pathParts) < 4 || pathParts[3] == "" {
+        http.Error(w, "Post ID not specified", http.StatusBadRequest)
+        return
+    }
+    id := pathParts[3] // e.g. /api/singlepost/{id}
+
+    // Prepare query
+    var post g.Post
+    err := g.DB.QueryRow("SELECT id, title, content, category FROM posts WHERE id = ?", id).
+        Scan(&post.ID, &post.Title, &post.Content, &post.Category)
+
+    if err != nil {
+        if err == sql.ErrNoRows {
+            http.Error(w, "Post not found", http.StatusNotFound)
+        } else {
+            http.Error(w, "Database error", http.StatusInternalServerError)
+        }
+        return
+    }
+
+    // Return JSON response
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(post)
 }
