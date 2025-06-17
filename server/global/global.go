@@ -2,6 +2,7 @@ package glo
 import (
 	"sync"
 	"database/sql"
+	"time"
 )
 
 var DB *sql.DB
@@ -27,4 +28,12 @@ type Post struct {
 	Title       string `json:"title"`
 	Content     string `json:"content"`
 	Category    string `json:"category"`
+}
+
+type Comment struct {
+    ID        string    `json:"id"`
+    PostID    string    `json:"post_id"`
+    Author    string    `json:"author"`
+    Content   string    `json:"content"`
+    CreatedAt time.Time `json:"created_at"`
 }

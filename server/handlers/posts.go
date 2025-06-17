@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"strings"
 	g "forum/server/global"
+    "time"
 	"log"
 	http "net/http"
 	"github.com/google/uuid"
@@ -110,4 +111,85 @@ func GetSinglePost(w http.ResponseWriter, r *http.Request) {
     // Return JSON response
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(post)
+}
+
+func Getcomments(w http.ResponseWriter, r *http.Request) {
+    // Extract the post ID from the URL manually
+    pathParts := strings.Split(r.URL.Path, "/")
+    if len(pathParts) < 4 || pathParts[3] == "" {
+        http.Error(w, "Post ID not specified", http.StatusBadRequest)
+        return
+    }
+    postID := pathParts[3] // e.g. /api/comments/{postID}
+
+    rows, err := g.DB.Query("SELECT id, post_id, author, content, created_at FROM comments WHERE post_id = ?", postID)
+    if err != nil {
+        http.Error(w, "Database error", http.StatusInternalServerError)
+        return
+    }
+    defer rows.Close()
+
+    var comments []g.Comment
+    for rows.Next() {
+        var comment g.Comment
+        if err := rows.Scan(&comment.ID, &comment.PostID, &comment.Author, &comment.Content, &comment.CreatedAt); err != nil {
+            continue
+        }
+        comments = append(comments, comment)
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(comments)
+}
+
+func Getcreatecomment(w http.ResponseWriter, r *http.Request) {
+    // Parse the form data
+    if err := r.ParseForm(); err != nil {
+        json.NewEncoder(w).Encode(map[string]interface{}{
+            "success": false,
+            "error": "Unable to parse form data",
+        })
+        return
+    }
+
+    // Extract post ID from the URL manually
+    pathParts := strings.Split(r.URL.Path, "/")
+    if len(pathParts) < 4 || pathParts[3] == "" {
+        http.Error(w, "Post ID not specified", http.StatusBadRequest)
+        return
+    }
+    postID := pathParts[3] // e.g. /api/comments/{postID}
+
+    var comment g.Comment
+    comment.ID = uuid.New().String()
+    comment.PostID = postID
+    if _, ok := session.GetSessionUsername(r); !ok {
+        http.Error(w, "Unauthorized", http.StatusUnauthorized)
+        return
+    } else {
+        comment.Author, _ = session.GetSessionUsername(r)
+    }
+    comment.Content = r.FormValue("comment")
+    comment.CreatedAt = time.Now()
+
+    query := `
+        INSERT INTO comments (id, post_id, author, content, created_at)
+        VALUES (?, ?, ?, ?, ?);
+    `
+    _, err := g.DB.Exec(query, comment.ID, comment.PostID, comment.Author, comment.Content, comment.CreatedAt)
+    
+    if err != nil {
+        log.Println("Error inserting comment:", err)
+        json.NewEncoder(w).Encode(map[string]interface{}{
+            "success": false,
+            "error": "Failed to create comment",
+        })
+        return
+    }
+
+    json.NewEncoder(w).Encode(map[string]interface{}{
+        "success": true,
+        "message": "Comment created successfully",
+        "comment": comment,
+    })
 }

@@ -115,7 +115,16 @@
     </section>
         <!-- Feed Post Section-->
     <section class="feedPost" id="feedPost"></section>
-    <section class="singlePost" id="singlePost"></section>
+    <section class="fullSinglePost" id="fullSinglePost">
+        <div class="singlePost" id="singlePost"></div>
+        <div class="singlePostComment" id="singlePostComment">
+            <div class="comment" id="comment"></div>
+            <form id="commentForm">
+                <input type="text" placeholder="Enter your comment..." name="comment" id="commentFormInput" pattern="[A-Za-z0-9]+" >
+                <input type="submit" value="submit" id="submitComment">
+            </form>
+        </div>
+    </section>
     <div id="postContainer"></div>
     <footer>
         <section class="footer">

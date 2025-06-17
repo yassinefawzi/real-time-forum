@@ -16,4 +16,13 @@ CREATE TABLE IF NOT EXISTS posts (
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     category TEXT NOT NULL,
-​)
+​);
+
+CREATE TABLE IF NOT EXISTS comments (
+    id TEXT UNIQUE PRIMARY KEY,
+    post_id TEXT NOT NULL,
+    author TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+);
