@@ -1,15 +1,16 @@
 package main
 
 import (
+	"database/sql"
+	g "forum/server/global"
+	h "forum/server/handlers"
 	"html/template"
 	"log"
 	"net/http"
-	"path/filepath"
-	h "forum/server/handlers"
-	g "forum/server/global"
-	"database/sql"
-	_ "github.com/mattn/go-sqlite3"
 	"os"
+	"path/filepath"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func init() {
@@ -36,7 +37,6 @@ func init() {
 	log.Println("Database migrated successfully")
 }
 
-
 func main() {
 	tmpl, err := template.ParseFiles(filepath.Join("client", "templates", "index.html"))
 	if err != nil {
@@ -45,12 +45,11 @@ func main() {
 
 	fs := http.FileServer(http.Dir(filepath.Join("client", "static")))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	
 
 	// Handlers
 	http.HandleFunc("/api/login", h.Getlogin)
 	http.HandleFunc("/api/signup", h.Getregister)
-	http.HandleFunc("/api/logout", h.Getlogout)
+	http.HandleFunc("/api/logout", h.Get)
 	http.HandleFunc("/api/checksession", h.CheckSession)
 	http.HandleFunc("/api/createpost", h.Getcreatepost)
 	http.HandleFunc("/api/posts", h.Getposts)

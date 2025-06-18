@@ -38,9 +38,8 @@ func GetSessionUsername(r *http.Request) (string, bool) {
 	if err != nil {
 		return "", false
 	}
-
 	g.SessionsMu.Lock()
-	username, exists := g.Sessions[cookie.Value]
+	username, exists := g.Sessions[cookie.Value], true
 	g.SessionsMu.Unlock()
 
 	return username, exists
